@@ -10,5 +10,5 @@ def get_satuan(db: Session = Depends(get_db_session)):
         Satuan.id_satuan, 
         Satuan.nama_satuan
     ).all()
-    message = "GET All data satuan berhasil."
+    message  = "GET All data satuan berhasil."
     return {"message": message, "data": get_satuan}
