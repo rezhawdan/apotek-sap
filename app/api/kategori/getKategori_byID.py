@@ -12,6 +12,7 @@ def getKategori_byID(kategori_id: str, db: Session = Depends(get_db_session)):
 
     kategori_data = {
         'id_kategori': kategori.id_kategori,
+        'code_kategori': kategori.code_kategori,
         'nama_kategori': kategori.nama_kategori
     }
     message = 'GET data kategori by ID berhasil'

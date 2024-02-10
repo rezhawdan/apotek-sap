@@ -11,14 +11,16 @@ class LogoutData(BaseModel):
     refresh_token: str
 
 
-async def auth_logout(data: LogoutData, session = Depends(get_db_session)):
+async def auth_logout(data: LogoutData, session=Depends(get_db_session)):
     result = session.execute(
-        sa.delete(UserLogin).where(UserLogin.refresh_token == data.refresh_token)
+        sa.delete(UserLogin).where(
+            UserLogin.refresh_token == data.refresh_token)
     )
 
     if result.rowcount == 0:
-        raise HTTPException(400, 'Refresh token not found')
-    
+        raise HTTPException(400, 'Refresh token tidak ditemukan.')
+
     session.commit()
 
-    return Response(status_code=204)
+    message = "Logout berhasil."
+    return {"message": message}

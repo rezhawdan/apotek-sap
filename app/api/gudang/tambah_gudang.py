@@ -5,19 +5,25 @@ from pydantic import BaseModel, validator
 from app.dependencies.get_db_session import get_db_session
 from app.models.gudang import Gudang
 
+
 class TambahGudang(BaseModel):
-    id_gudang: str
+    code_gudang: str
     nama_gudang: str
 
+
 async def tambah_gudang(data: TambahGudang, session=Depends(get_db_session)):
-    # Additional validation or checks can be added here before adding to the database.
-    
     gudang = Gudang(
-        id_gudang=data.id_gudang,
+        code_gudang=data.code_gudang,
         nama_gudang=data.nama_gudang,
     )
 
     session.add(gudang)
     session.commit()
 
-    return Response(status_code=201)
+    message = 'Data Gudang berhasil dibuat.'
+    return {'message': message,
+            'data': {
+                'code_gudang': gudang.code_gudang,
+                'nama_gudang': gudang.nama_gudang
+            }}
+    

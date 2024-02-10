@@ -7,7 +7,7 @@ from app.models.user import User
 
 def get_users(db: Session = Depends(get_db_session)):
     users = db.query(
-        User.id, 
+        User.id_user, 
         User.username, 
         User.full_name, 
         User.role

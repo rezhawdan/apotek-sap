@@ -6,18 +6,21 @@ from app.dependencies.get_db_session import get_db_session
 from app.models.kategori import Kategori
 
 class TambahKategori(BaseModel):
-    id_kategori: str
+    code_kategori: str
     nama_kategori: str
 
 async def tambah_kategori(data: TambahKategori, session=Depends(get_db_session)):
-    # Additional validation or checks can be added here before adding to the database.
-    
     kategori = Kategori(
-        id_kategori=data.id_kategori,
+        code_kategori=data.code_kategori,
         nama_kategori=data.nama_kategori,
     )
 
     session.add(kategori)
     session.commit()
 
-    return Response(status_code=201)
+    message = 'Data Kategori berhasil dibuat.'
+    return {'message': message,
+            'data': {
+                'code_kategori': kategori.code_kategori,
+                'nama_kategori': kategori.nama_kategori
+            }}

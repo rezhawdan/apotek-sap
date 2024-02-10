@@ -1,4 +1,5 @@
 import sqlalchemy as sa
+import uuid
 
 from app.models import Base
 
@@ -6,7 +7,7 @@ from app.models import Base
 class User(Base):
     __tablename__ = 'User'
 
-    id = sa.Column('id', sa.Integer, primary_key=True)
+    id_user = sa.Column('id_user', sa.String(length=36), primary_key=True, default=str(uuid.uuid4()))
     username = sa.Column('username', sa.String)
     password = sa.Column('password', sa.String)
     full_name = sa.Column('full_name', sa.String)

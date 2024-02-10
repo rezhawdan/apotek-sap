@@ -12,7 +12,8 @@ def getRak_byID(rak_id: str, db: Session = Depends(get_db_session)):
 
     rak_data = {
         'id_rak': rak.id_rak,
-        'daftar_rak': rak.daftar_rak
+        'code_rak': rak.code_rak,
+        'daftar_rak': rak.nama_rak
     }
     message = 'GET data rak by ID berhasil'
     return {'message': message, 'data': rak_data}

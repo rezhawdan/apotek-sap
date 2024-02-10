@@ -7,8 +7,9 @@ from app.models.gudang import Gudang
 
 def get_gudang(db: Session = Depends(get_db_session)):
     get_gudang = db.query(
-        Gudang.id_gudang, 
+        Gudang.id_gudang,
+        Gudang.code_gudang, 
         Gudang.nama_gudang
     ).all()
-    message = "GET All data kategori berhasil."
+    message = "GET All data Gudang berhasil."
     return {"message": message, "data": get_gudang}

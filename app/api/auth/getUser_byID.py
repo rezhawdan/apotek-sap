@@ -4,13 +4,13 @@ from app.dependencies.get_db_session import get_db_session
 from app.models.user import User
 
 
-def getUser_byID(user_id: int, db: Session = Depends(get_db_session)):
-    user = db.query(User).filter(User.id == user_id).first()
+def getUser_byID(user_id: str, db: Session = Depends(get_db_session)):
+    user = db.query(User).filter(User.id_user == user_id).first()
     if user is None:
         raise HTTPException(status_code=404, detail="Data User by ID tidak ditemukan.")
     
     user_data = {
-        "id_user": user.id,
+        "id_user": user.id_user,
         "username": user.username,
         "full_name": user.full_name,
         "role": user.role

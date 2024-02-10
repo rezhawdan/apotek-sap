@@ -6,17 +6,27 @@ from pydantic import BaseModel
 
 
 class UpdateKategoriData(BaseModel):
-    nama_kategori: str
+    code_kategori: str = None
+    nama_kategori: str = None
 
 
 def updateKategori(kategori_id: str, updated_data: UpdateKategoriData, db: Session = Depends(get_db_session)):
-    kategori = db.query(Kategori).filter(Kategori.id_kategori == kategori_id).first()
+    kategori = db.query(Kategori).filter(
+        Kategori.id_kategori == kategori_id).first()
     if kategori is None:
-        raise HTTPException(status_code=404, detail="Data Kategori by ID tidak ditemukan.")
-    
-    kategori.nama_kategori = updated_data.nama_kategori
-    
+        raise HTTPException(
+            status_code=404, detail="Data Kategori by ID tidak ditemukan.")
+
+    if updated_data.code_kategori is not None:
+        kategori.code_kategori = updated_data.code_kategori
+    if updated_data.nama_kategori is not None:
+        kategori.nama_kategori = updated_data.nama_kategori
+
     db.commit()
-    
+
     message = "Update data Kategori by ID berhasil"
-    return {"message": message, "data": updated_data.dict()}
+    return {"message": message,
+            "data": {
+                "code_kategori": kategori.code_kategori,
+                "nama_kategori": kategori.nama_kategori
+            }}

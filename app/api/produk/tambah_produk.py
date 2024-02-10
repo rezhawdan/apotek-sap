@@ -12,7 +12,7 @@ class ProductRegistrationData(BaseModel):
     nama_pabrik: str
     barcode: str
     rak: str
-    satuan_utama: str
+    satuan: str
     gudang: str
     referensi_harga_beli: int
     harga_jual: int
@@ -21,8 +21,6 @@ class ProductRegistrationData(BaseModel):
     perlu_resep: str
 
 async def tambah_produk(data: ProductRegistrationData, session=Depends(get_db_session)):
-    # Additional validation or checks can be added here before adding to the database.
-    
     product = Produk(
         tipe_produk=data.tipe_produk,
         nama_produk=data.nama_produk,
@@ -30,7 +28,7 @@ async def tambah_produk(data: ProductRegistrationData, session=Depends(get_db_se
         nama_pabrik=data.nama_pabrik,
         barcode=data.barcode,
         rak=data.rak,
-        satuan_utama=data.satuan_utama,
+        satuan=data.satuan,
         gudang=data.gudang,
         referensi_harga_beli=data.referensi_harga_beli,
         harga_jual=data.harga_jual,
@@ -42,4 +40,20 @@ async def tambah_produk(data: ProductRegistrationData, session=Depends(get_db_se
     session.add(product)
     session.commit()
 
-    return Response(status_code=201)
+    message = 'Data Produk berhasil dibuat.'
+    return {'message': message,
+            'data': {
+                'tipe_produk': product.tipe_produk,
+                'nama_produk': product.nama_produk,
+                'sku': product.sku,
+                'nama_pabrik': product.nama_pabrik,
+                'barcode': product.barcode,
+                'rak': product.rak,
+                'gudang': product.gudang,
+                'satuan': product.satuan,
+                'referensi_harga_beli': product.referensi_harga_beli,
+                'harga_jual': product.harga_jual,
+                'kategori': product.kategori,
+                'status_penjualan': product.status_penjualan,
+                'perlu_resep': product.perlu_resep
+            }}

@@ -12,6 +12,7 @@ def getGudang_byID(gudang_id: str, db: Session = Depends(get_db_session)):
 
     gudang_data = {
         'id_gudang': gudang.id_gudang,
+        'code_gudang': gudang.code_gudang,
         'nama_gudang': gudang.nama_gudang
     }
     message = 'GET data gudang by ID berhasil'

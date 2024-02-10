@@ -8,7 +8,9 @@ from app.models.satuan import Satuan
 def get_satuan(db: Session = Depends(get_db_session)):
     get_satuan = db.query(
         Satuan.id_satuan, 
+        Satuan.code_satuan, 
         Satuan.nama_satuan
     ).all()
+    
     message  = "GET All data satuan berhasil."
     return {"message": message, "data": get_satuan}

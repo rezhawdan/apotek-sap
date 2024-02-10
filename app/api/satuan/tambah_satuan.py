@@ -6,18 +6,22 @@ from app.dependencies.get_db_session import get_db_session
 from app.models.satuan import Satuan
 
 class TambahSatuan(BaseModel):
-    id_satuan: str
+    code_satuan: str
     nama_satuan: str
 
 async def tambah_satuan(data: TambahSatuan, session=Depends(get_db_session)):
-    # Additional validation or checks can be added here before adding to the database.
-    
     satuan = Satuan(
-        id_satuan=data.id_satuan,
+        code_satuan=data.code_satuan,
         nama_satuan=data.nama_satuan,
     )
 
     session.add(satuan)
     session.commit()
 
-    return Response(status_code=201)
+    message = 'Data Satuan berhasil dibuat.'
+    return {'message': message,
+            'data': {
+                'code_satuan': satuan.code_satuan,
+                'nama_satuan': satuan.nama_satuan
+            }}
+    

@@ -7,7 +7,7 @@ from app.models.produk import Produk
 
 def get_produk(db: Session = Depends(get_db_session)):
     get_produk = db.query(
-        Produk.id, 
+        Produk.id_produk, 
         Produk.tipe_produk,
         Produk.nama_produk,
         Produk.sku,
@@ -15,12 +15,12 @@ def get_produk(db: Session = Depends(get_db_session)):
         Produk.barcode,
         Produk.rak,
         Produk.gudang,
-        Produk.satuan_utama,
+        Produk.satuan,
         Produk.referensi_harga_beli,
         Produk.harga_jual,
         Produk.kategori,
         Produk.status_penjualan,
         Produk.perlu_resep
     ).all()
-    message = "GET All data produk berhasil."
+    message = "GET All data Produk berhasil."
     return {"message": message, "data": get_produk}
