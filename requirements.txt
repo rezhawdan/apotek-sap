@@ -1,8 +1,11 @@
 cryptography==36.0.0
 fastapi==0.70.0
+passlib[bcrypt]
+psycopg2-binary
+pydantic
 PyJWT==2.3.0
-PyMySQL==1.0.2
-python-dotenv==0.19.2
-SQLAlchemy==1.4.28
+python-dotenv
+python-jose
+sqlalchemy
 uvicorn==0.16.0
 Werkzeug==2.0.2

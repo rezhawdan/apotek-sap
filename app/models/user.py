@@ -1,16 +1,9 @@
-import sqlalchemy as sa
-import uuid
-
-from app.models import Base
-
+from sqlalchemy import Column, Integer, String
+from app.database import Base
 
 class User(Base):
-    __tablename__ = 'User'
+    __tablename__ = "users"
 
-    id_user = sa.Column('id_user', sa.String(length=36), primary_key=True, default=str(uuid.uuid4()))
-    username = sa.Column('username', sa.String)
-    password = sa.Column('password', sa.String)
-    full_name = sa.Column('full_name', sa.String)
-    role = sa.Column('role', sa.String)
-    created_at = sa.Column('created_at', sa.DateTime, default=sa.func.NOW())
-    modified_at = sa.Column('modified_at', sa.DateTime, default=sa.func.NOW(), onupdate=sa.func.NOW())
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, unique=True, index=True, nullable=False)
+    hashed_password = Column(String, nullable=False)
